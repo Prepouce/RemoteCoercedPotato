@@ -6,8 +6,11 @@ This is only a POC (for now).
 
 
 Todo : 
+
     - Random NamedPipe
+    
     - Implemention of MS-RPRN interfacce 
+    
     - Creation a powershell "NamedPipe server" 
 
 
