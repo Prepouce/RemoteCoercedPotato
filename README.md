@@ -12,6 +12,7 @@ Todo :
 
 
 Usage (for now) : 
-    (Linux) $ python3 CoercedPotatoClient.py -u user -p password 127.0.0.1 [targeted_IP]
 
-    (Windows) > ./CoercedPotatoServer -c cmd.exe  
+    > python3 CoercedPotatoClient.py -u user -p password 127.0.0.1 [targeted_IP]
+
+    > ./CoercedPotatoServer -c cmd.exe  
