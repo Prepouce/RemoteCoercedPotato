@@ -1,20 +1,7 @@
 # RemoteCoercedPotato
-A remote Coerced patate
+A POC of a Remote Coerced Patate, just for fun.
 
-
-This is only a POC (for now).
-
-
-Todo : 
-
-    - Random NamedPipe [DONE]
-    
-    - Implemention of MS-RPRN interfacce 
-    
-    - Creation a powershell "NamedPipe server" 
-
-
-Usage (for now) : 
+Usage : 
 
 - Without random namedpipe (default) :
 
@@ -29,3 +16,11 @@ Usage (for now) :
         
     > python3 CoercedPotatoClient.py -n [randomnamedpipe] -u user -p password -r true 127.0.0.1 [targeted_IP] 
 
+
+Todo : 
+
+    - Random NamedPipe [DONE]
+    
+    - Implemention of MS-RPRN interfacce 
+    
+    - Creation a powershell of a bytecode version of the namedPipe server 
