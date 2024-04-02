@@ -1,3 +1,6 @@
+# RemoteCoercedPotato
+
+
 ```txt
 Remote
    ____                            _ ____       _        _        
@@ -9,18 +12,17 @@ Remote
                                            @Hack0ura @Prepouce                         
 ```
 
-# RemoteCoercedPotato
 A quick POC of a Coerced Patate but remotly (just for fun).
 
 From Patate (LOCAL/NETWORK SERVICE) to SYSTEM by abusing `SeImpersonatePrivilege` on Windows 10, Windows 11 and Server 2022.
 
 For more information: [https://blog.hackvens.fr/articles/CoercedPotato.html](https://blog.hackvens.fr/articles/CoercedPotato.html) (The english version is coming soon!! 😄)
 
-## A very quick PoooooC:
+## Usage 
 
-Usage : 
+First, you can check the help message using the `--help` option.
 
-You can check the help message using the `--help` option.
+A very quick PoooooC:
 
 - Without random namedpipe (default):
 ```txt
