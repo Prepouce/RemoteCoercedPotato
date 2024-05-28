@@ -40,6 +40,7 @@ A very quick PoooooC:
     ./CoercedPotatoClient.py -n [randomnamedpipe] -u user -p password -r true 127.0.0.1 [targeted_IP] 
 ```
 
+![2024-05-28_17-19](https://github.com/Prepouce/RemoteCoercedPotato/assets/144021275/ad4bd837-8ac8-4947-955f-aad7c9336c7b)
 
 
 ## Todo 
